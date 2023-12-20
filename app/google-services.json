@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "209975478363",
+    "project_id": "calories-9f1a5",
+    "storage_bucket": "calories-9f1a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209975478363:android:b5d4d16207827cdaaa177e",
+        "android_client_info": {
+          "package_name": "com.emadomarah.food"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_FPe2FHvQvHCHXNvn5CKcICr6IWT5KtU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

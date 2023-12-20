@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/recom_back"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp"
+                android:gravity="left"
+                >
+
+                <ImageButton
+                    android:id="@+id/back_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_back"
+                    android:background="@null"
+                    android:layout_marginLeft="20dp"
+                    android:onClick="RecomndationOnClick"
+
+
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="serif"
+                    android:text="Recommedtion"
+                    android:textColor="#4c5056"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    >
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="10dp"
+                        >
+
+                        <ImageView
+                            android:id="@+id/bf_img"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/b1"
+                            android:scaleType="centerCrop"
+                            />
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp"
+                        >
+
+                        <TextView
+                            android:id="@+id/bf_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Breakfast(287 calories)"
+                            android:layout_marginBottom="15dp"
+                            android:textSize="15sp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_marginTop="15dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/bf_desc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Combine 3/4 cup bran flakes, 1 banana, and 1 cup fat-free milk in a bowl."
+                            android:textSize="12sp"
+                            android:fontFamily="casual"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="right"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        >
+
+                        <TextView
+                            android:id="@+id/lunch_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Lunch(360 calories)       "
+                            android:textColor="@color/black"
+
+                            android:layout_marginBottom="15dp"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="15dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/lunch_desc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Build a sandwich with 1 mini whole wheat pita, 3 ounces turkey breast, 1/2 roasted pepper, 1 teaspoon mayo, mustard, and lettuce. Serve with 1 stick part-skim mozzarella string cheese and 2 kiwis."
+                            android:textSize="12sp"
+                            android:fontFamily="casual"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            />
+                    </LinearLayout>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="10dp"
+                        android:layout_gravity="right"
+                        >
+
+                        <ImageView
+                            android:id="@+id/lunch_img"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/b2"
+                            android:layout_gravity="right"
+
+                            android:scaleType="centerCrop"
+                            />
+                    </androidx.cardview.widget.CardView>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    >
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="15dp"
+                        >
+
+                        <ImageView
+                            android:id="@+id/dinner_img"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/b3"
+                            android:scaleType="centerCrop"
+                            />
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp"
+                        >
+
+                        <TextView
+                            android:id="@+id/dinner_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Dinner(420 calories)"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="15dp"
+                            android:textColor="@color/black"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/dinner_desc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Serve 4 ounces broiled flounder or sole with 2 sliced plum tomatoes sprinkled with 2 tablespoons"
+                            android:textSize="12sp"
+                            android:fontFamily="casual"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <!--    <com.google.android.material.bottomappbar.BottomAppBar-->
+        <!--        android:id="@+id/bottomAppBar"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_gravity="bottom"-->
+        <!--        android:backgroundTint="#F0F4F8"-->
+        <!--        android:background="#F0F4F8"-->
+        <!--        app:fabAlignmentMode="center"-->
+        <!--        app:fabAnimationMode="slide"-->
+        <!--        app:backgroundTint="#F0F4F8"-->
+        <!--        app:fabCradleRoundedCornerRadius="10dp"-->
+        <!--        app:elevation="0dp"-->
+
+        <!--        >-->
+
+        <!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
+        <!--            android:id="@+id/bottomNavigationView"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:backgroundTint="#F0F4F8"-->
+        <!--            app:backgroundTint="#F0F4F8"-->
+        <!--            android:background="#F0F4F8"-->
+        <!--            android:elevation="0dp"-->
+
+        <!--            app:itemIconTint="@color/bot_nav_view"-->
+        <!--            app:itemTextColor="@color/bot_nav_view"-->
+        <!--            app:menu="@menu/menu"-->
+
+
+        <!--            />-->
+
+        <!--    </com.google.android.material.bottomappbar.BottomAppBar>-->
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
