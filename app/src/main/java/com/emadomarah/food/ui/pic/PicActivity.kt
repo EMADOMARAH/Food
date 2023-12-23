@@ -128,8 +128,6 @@ class PicActivity : AppCompatActivity() {
         pref = getSharedPreferences("Calories", MODE_PRIVATE)
         uId = pref!!.getString("uId", "")
 
-
-
         verifyStoragePermission(this)
 
         val interceptor = HttpLoggingInterceptor()
@@ -215,12 +213,17 @@ class PicActivity : AppCompatActivity() {
                     Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
                 }
             } else if (requestCode == CAMERA) {
-                val thumbnail = data.extras!!["data"] as Bitmap?
-                imageView!!.setImageBitmap(thumbnail)
-                val path = saveImage(thumbnail)
-                //--------------------------------------------------------------------------------------------
-                //-----------------------UPLOAD IMAGE FROM CAMERA-------------------------------------------------------
-                uploadFile(path)
+                data?.extras?.getParcelable<Bitmap>("data")?.let { thumbnail ->
+                    imageView!!.setImageBitmap(thumbnail)
+                    val path = saveImage(thumbnail)
+                    uploadFile(path)
+                }
+//                val thumbnail = data.extras!!["data"] as Bitmap?
+//                imageView!!.setImageBitmap(thumbnail)
+//                val path = saveImage(thumbnail)
+//                //--------------------------------------------------------------------------------------------
+//                //-----------------------UPLOAD IMAGE FROM CAMERA-------------------------------------------------------
+//                uploadFile(path)
             } else {
             }
         } else {
@@ -338,7 +341,7 @@ class PicActivity : AppCompatActivity() {
     }
 
 
-    fun uploadFile(path: String?) {
+    private fun uploadFile(path: String?) {
         val file = File(path)
         // create RequestBody instance from file
         val requestFile = RequestBody.create(
@@ -354,7 +357,7 @@ class PicActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ImageResponse>, response: Response<ImageResponse>) {
                 if (response.isSuccessful()) {
                     imageResponseId = response.body()!!.imageId
-                imageRecongnition(imageResponseId)
+                imageRecognition(imageResponseId)
                 } else {
                     Toast.makeText(activity.applicationContext, response.message().toString(), Toast.LENGTH_SHORT)
                         .show()
@@ -370,7 +373,7 @@ class PicActivity : AppCompatActivity() {
         })
     }
 
-    private fun imageRecongnition(imageResponseId: Int) {
+    private fun imageRecognition(imageResponseId: Int) {
         val call: Call<ImageIdResponse> =
             apiInterface!!.getImageInfo("Bearer $Token", ImageId(imageResponseId))
         call.enqueue(object : Callback<ImageIdResponse> {
@@ -452,31 +455,41 @@ class PicActivity : AppCompatActivity() {
     //TWO  Function to check and request permission.
     fun checkPermission(permission: String, requestCode: Int): Boolean {
         if (ContextCompat.checkSelfPermission(
-                applicationContext,
-                permission
-            ) == PackageManager.PERMISSION_DENIED
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
         ) {
-
-            // Requesting the permission
-            ActivityCompat.requestPermissions(this, arrayOf<String>(permission), requestCode)
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ),
+                STORAGE_PERMISSION_CODE
+            )
         } else {
-            return true
         }
         return false
     }
 
     private fun verifyStoragePermission(activity: Activity) {
-        val permission =
-            ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        if (permission != PackageManager.PERMISSION_GRANTED) {
+        val permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
             ActivityCompat.requestPermissions(
-                activity,
-                PERMISSION_STORAGE,
-                REQUEST_EXTERNAL_STORAGE
+                this,
+                arrayOf(
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ),
+                STORAGE_PERMISSION_CODE
             )
+        } else {
         }
     }
-
 
     fun saveImage(myBitmap: Bitmap?): String {
         val dirPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/FoodImages"
@@ -498,21 +511,56 @@ class PicActivity : AppCompatActivity() {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bos)
                 val bitmapdata = bos.toByteArray()
 
-                val fos = FileOutputStream(imageFile)
-                fos.write(bitmapdata)
-                fos.flush()
-                fos.close()
-
-                imageFilePath = imageFile.path
+                FileOutputStream(imageFile).use { fos ->
+                    fos.write(bitmapdata)
+                    imageFilePath = imageFile.path
+                }
             } ?: run {
                 println("Bitmap is null")
             }
         } catch (e1: IOException) {
             e1.printStackTrace()
             println("Error: ${e1.message}")
+            // Handle error: Inform user or perform necessary actions
         }
         return imageFilePath
     }
+
+//    fun saveImage(myBitmap: Bitmap?): String {
+//        val dirPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/FoodImages"
+//        val date = Date()
+//        val format = DateFormat.format("yyyy-MM-dd_HH:mm:ss", date) // Corrected date format
+//        var imageFilePath = ""
+//
+//        try {
+//            val fileDir = File(dirPath)
+//            if (!fileDir.exists()) {
+//                fileDir.mkdirs() // Use mkdirs() to create directories recursively
+//            }
+//
+//            val path = "$dirPath/food-$format.jpeg"
+//            val imageFile = File(path)
+//
+//            myBitmap?.let { bitmap ->
+//                val bos = ByteArrayOutputStream()
+//                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bos)
+//                val bitmapdata = bos.toByteArray()
+//
+//                val fos = FileOutputStream(imageFile)
+//                fos.write(bitmapdata)
+//                fos.flush()
+//                fos.close()
+//
+//                imageFilePath = imageFile.path
+//            } ?: run {
+//                println("Bitmap is null")
+//            }
+//        } catch (e1: IOException) {
+//            e1.printStackTrace()
+//            println("Error: ${e1.message}")
+//        }
+//        return imageFilePath
+//    }
 
     private fun correctOrientation(bitmap: Bitmap?, photoUri: Uri?): Bitmap? {
         try {
