@@ -15,7 +15,7 @@ public class ImageIdResponse {
 	private int imageId;
 
 	@SerializedName("serving_size")
-	private int servingSize;
+	private double servingSize;
 
 	@SerializedName("ids")
 	private List<Integer> ids;
@@ -38,7 +38,7 @@ public class ImageIdResponse {
 		return imageId;
 	}
 
-	public int getServingSize(){
+	public double getServingSize(){
 		return servingSize;
 	}
 

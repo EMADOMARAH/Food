@@ -8,7 +8,7 @@ public class FOLAC{
 	private String unit;
 
 	@SerializedName("quantity")
-	private int quantity;
+	private double quantity;
 
 	@SerializedName("label")
 	private String label;
@@ -17,7 +17,7 @@ public class FOLAC{
 		return unit;
 	}
 
-	public int getQuantity(){
+	public double getQuantity(){
 		return quantity;
 	}
 

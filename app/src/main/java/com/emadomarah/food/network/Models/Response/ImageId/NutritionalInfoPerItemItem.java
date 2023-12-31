@@ -8,7 +8,7 @@ public class NutritionalInfoPerItemItem{
 	private NutritionalInfo nutritionalInfo;
 
 	@SerializedName("serving_size")
-	private int servingSize;
+	private double servingSize;
 
 	@SerializedName("food_item_position")
 	private int foodItemPosition;
@@ -23,7 +23,7 @@ public class NutritionalInfoPerItemItem{
 		return nutritionalInfo;
 	}
 
-	public int getServingSize(){
+	public double getServingSize(){
 		return servingSize;
 	}
 

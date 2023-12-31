@@ -8,7 +8,7 @@ public class FAMS{
 	private String unit;
 
 	@SerializedName("quantity")
-	private Object quantity;
+	private double quantity;
 
 	@SerializedName("label")
 	private String label;
@@ -17,7 +17,7 @@ public class FAMS{
 		return unit;
 	}
 
-	public Object getQuantity(){
+	public double getQuantity(){
 		return quantity;
 	}
 

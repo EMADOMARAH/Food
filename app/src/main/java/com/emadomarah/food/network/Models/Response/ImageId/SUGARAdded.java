@@ -8,7 +8,7 @@ public class SUGARAdded{
 	private String unit;
 
 	@SerializedName("quantity")
-	private int quantity;
+	private double quantity;
 
 	@SerializedName("label")
 	private String label;
@@ -17,13 +17,13 @@ public class SUGARAdded{
 	private String level;
 
 	@SerializedName("percent")
-	private int percent;
+	private double percent;
 
 	public String getUnit(){
 		return unit;
 	}
 
-	public int getQuantity(){
+	public double getQuantity(){
 		return quantity;
 	}
 
@@ -35,7 +35,7 @@ public class SUGARAdded{
 		return level;
 	}
 
-	public int getPercent(){
+	public double getPercent(){
 		return percent;
 	}
 }

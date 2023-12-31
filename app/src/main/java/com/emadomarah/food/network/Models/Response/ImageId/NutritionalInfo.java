@@ -8,7 +8,7 @@ public class NutritionalInfo{
 	private DailyIntakeReference dailyIntakeReference;
 
 	@SerializedName("calories")
-	private Object calories;
+	private double calories;
 
 	@SerializedName("totalNutrients")
 	private TotalNutrients totalNutrients;
@@ -17,7 +17,7 @@ public class NutritionalInfo{
 		return dailyIntakeReference;
 	}
 
-	public Object getCalories(){
+	public double getCalories(){
 		return calories;
 	}
 

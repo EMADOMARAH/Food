@@ -8,7 +8,7 @@ public class SUGAR{
 	private String unit;
 
 	@SerializedName("quantity")
-	private Object quantity;
+	private double quantity;
 
 	@SerializedName("label")
 	private String label;
@@ -17,13 +17,13 @@ public class SUGAR{
 	private String level;
 
 	@SerializedName("percent")
-	private Object percent;
+	private double percent;
 
 	public String getUnit(){
 		return unit;
 	}
 
-	public Object getQuantity(){
+	public double getQuantity(){
 		return quantity;
 	}
 
@@ -35,7 +35,7 @@ public class SUGAR{
 		return level;
 	}
 
-	public Object getPercent(){
+	public double getPercent(){
 		return percent;
 	}
 }

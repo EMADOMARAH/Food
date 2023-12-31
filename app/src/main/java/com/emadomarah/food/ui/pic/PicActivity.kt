@@ -205,9 +205,17 @@ class PicActivity : AppCompatActivity() {
                     val imageStream = contentResolver.openInputStream(imageUri!!)
                     val selectedImage = BitmapFactory.decodeStream(imageStream)
                     val correctedImage = correctOrientation(selectedImage, imageUri)
-                    imageView!!.setImageBitmap(correctedImage)
-                    convertedPath = getRealPathFromURI(imageUri)
-                    uploadFile(convertedPath)
+
+                    // Resize the image if needed
+                    val resizedImage = resizeImage(correctedImage!!, 1024, 1024) // Adjust dimensions as needed
+
+                    imageView!!.setImageBitmap(resizedImage)
+
+                    // Save the resized image to a temporary file
+                    val tempFile = saveBitmapToFile(resizedImage)
+
+                    // Upload the resized image
+                    uploadFile(tempFile.absolutePath)
                 } catch (e: Exception) {
                     e.printStackTrace()
                     Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
@@ -215,15 +223,16 @@ class PicActivity : AppCompatActivity() {
             } else if (requestCode == CAMERA) {
                 data?.extras?.getParcelable<Bitmap>("data")?.let { thumbnail ->
                     imageView!!.setImageBitmap(thumbnail)
-                    val path = saveImage(thumbnail)
-                    uploadFile(path)
+
+                    // Resize the image if needed
+                    val resizedImage = resizeImage(thumbnail, 1024, 1024) // Adjust dimensions as needed
+
+                    // Save the resized image to a temporary file
+                    val tempFile = saveBitmapToFile(resizedImage)
+
+                    // Upload the resized image
+                    uploadFile(tempFile.absolutePath)
                 }
-//                val thumbnail = data.extras!!["data"] as Bitmap?
-//                imageView!!.setImageBitmap(thumbnail)
-//                val path = saveImage(thumbnail)
-//                //--------------------------------------------------------------------------------------------
-//                //-----------------------UPLOAD IMAGE FROM CAMERA-------------------------------------------------------
-//                uploadFile(path)
             } else {
             }
         } else {
@@ -231,7 +240,28 @@ class PicActivity : AppCompatActivity() {
         }
     }
 
+    // Function to resize a Bitmap to the specified dimensions
+    private fun resizeImage(bitmap: Bitmap, maxWidth: Int, maxHeight: Int): Bitmap {
+        val width = bitmap.width
+        val height = bitmap.height
 
+        val scaleWidth = minOf(maxWidth.toFloat() / width, 1.0f)
+        val scaleHeight = minOf(maxHeight.toFloat() / height, 1.0f)
+
+        val matrix = Matrix()
+        matrix.postScale(scaleWidth, scaleHeight)
+
+        return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
+    }
+
+    // Function to save a Bitmap to a temporary file
+    private fun saveBitmapToFile(bitmap: Bitmap): File {
+        val tempFile = File.createTempFile("temp_image", ".jpg")
+        val outputStream = FileOutputStream(tempFile)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
+        outputStream.close()
+        return tempFile
+    }
     fun getRealPathFromURI(contentUri: Uri?): String {
         val proj = arrayOf(MediaStore.Images.Media.DATA)
 
