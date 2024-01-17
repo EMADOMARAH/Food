@@ -90,7 +90,7 @@ class PicActivity : AppCompatActivity() {
     var apiInterface: ApiInterface? = null
     var myAmount: EditText? = null
     var retrofit: Retrofit? = null
-    var Token = "c9e650952964c21648fdea520945fe16d2c0ff81"
+    var Token = "135b46826a0a3d1580d7674e951e71bd0eeaef88"
     var imageUri: Uri? = null
 
     var convertedPath: String? = null

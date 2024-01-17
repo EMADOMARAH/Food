@@ -1,8 +1,10 @@
 package com.emadomarah.food.ui.home
 
+import android.Manifest
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -14,6 +16,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.emadomarah.food.MainActivity
 import com.emadomarah.food.R
@@ -25,6 +28,7 @@ import java.util.Calendar
 import java.util.Date
 
 class HomeActivity : AppCompatActivity() {
+    private val PERMISSION_STORAGE_CODE = 102
 
     var date: Button? = null
     var calender: Date? = null
@@ -87,6 +91,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        checkAndRequestStorageAndMediaPermission()
         nf.maximumFractionDigits = 0
         window.statusBarColor = ContextCompat.getColor(
             this,
@@ -436,6 +441,25 @@ class HomeActivity : AppCompatActivity() {
                 intent3.putExtra("date", myDate)
                 startActivityForResult(intent3, 1)
             }
+        }
+    }
+    fun checkAndRequestStorageAndMediaPermission() {
+        val permissions = arrayOf(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+        )
+
+        val notGrantedPermissions = permissions.filter {
+            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+        }
+
+        if (notGrantedPermissions.isNotEmpty()) {
+            ActivityCompat.requestPermissions(
+                this,
+                notGrantedPermissions.toTypedArray(),
+                PERMISSION_STORAGE_CODE
+            )
         }
     }
 }
